@@ -1,0 +1,46 @@
+version: "3.9"
+
+services:
+  frontend:
+    build:
+      context: .
+      dockerfile: docker/frontend.Dockerfile
+    ports:
+      - "8501:8501"
+    depends_on:
+      - orchestrator
+    environment:
+      - ORCHESTRATOR_URL=http://orchestrator:8000
+    volumes:
+      - ./frontend:/app
+
+  orchestrator:
+    build:
+      context: .
+      dockerfile: docker/orchestrator.Dockerfile
+    ports:
+      - "8000:8000"
+    depends_on:
+      - inference
+    environment:
+      - INFERENCE_URL=http://inference:8001
+    volumes:
+      - ./orchestrator:/app
+
+  inference:
+    build:
+      context: .
+      dockerfile: docker/inference.Dockerfile
+    ports:
+      - "8001:8001"
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: 1
+              capabilities: ["gpu"]
+    volumes:
+      - ./inference:/app
+      - ./models:/models
+      - ./checkpoints:/checkpoints

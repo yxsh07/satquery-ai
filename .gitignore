@@ -1,0 +1,10 @@
+__pycache__/
+*.pyc
+.env
+.venv/
+models/*
+checkpoints/*
+*.tif
+*.tiff
+.DS_Store
+node_modules/
