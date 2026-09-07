@@ -1,4 +1,4 @@
-streamlit
-requests
-streamlit-folium
-folium
+﻿streamlit>=1.35.0
+requests>=2.31.0
+streamlit-folium>=0.20.0
+folium>=0.16.0
