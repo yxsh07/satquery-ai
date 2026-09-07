@@ -8,3 +8,5 @@ checkpoints/*
 *.tiff
 .DS_Store
 node_modules/
+data/
+wandb/
